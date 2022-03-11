@@ -1,21 +1,20 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Tokens extends BaseSchema {
-  protected tableName = 'tokens'
+export default class Detallecompras extends BaseSchema {
+  protected tableName = 'detallecompras'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('detalleid').primary()
       table
-        .integer('userid')
+        .integer('compraid')
         .unsigned()
-        .references('users.id')
+        .references('compras.compraid')
         .onDelete('CASCADE')
-      table.string('token', 255).notNullable().unique()
-      table.string('type', 80).notNullable()
-      table.boolean('is_revoked').defaultTo(false)
+      table.integer('producto')
+      table.integer('cantidad')
+      table.decimal('precio')
       table.timestamps()
-
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
