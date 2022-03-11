@@ -1,33 +1,21 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Producto extends BaseModel {
+export default class Orderdetail extends BaseModel {
   @column({ isPrimary: true })
+  public orderdetailid: number
+
+  @column()
+  public orderid: number
+
+  @column()
   public productid: number
 
   @column()
-  public nombre: string
+  public quantity: number
 
   @column()
-  public color: string
-
-  @column()
-  public existencias: number
-
-  @column()
-  public precio: number
-
-  @column()
-  public tallaid: number
-
-  @column()
-  public marcaid: number
-
-  @column()
-  public categoriaid: number
-
-  @column()
-  public imagen: string
+  public unitprice: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

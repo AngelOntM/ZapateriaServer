@@ -1,15 +1,30 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Compra extends BaseModel {
+export default class Product extends BaseModel {
   @column({ isPrimary: true })
-  public compraid: number
+  public productid: number
 
   @column()
-  public proveedorid: number
+  public name: string
 
   @column()
-  public paqueteriaid: number
+  public color: string
+
+  @column()
+  public stock: number
+
+  @column()
+  public price: number
+
+  @column()
+  public sizeid: number
+
+  @column()
+  public brandid: number
+
+  @column()
+  public categoryid: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

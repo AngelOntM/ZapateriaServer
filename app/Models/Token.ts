@@ -1,12 +1,21 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Marca extends BaseModel {
+export default class Token extends BaseModel {
   @column({ isPrimary: true })
-  public marcaid: number
+  public tokenid: number
 
   @column()
-  public nombre: string
+  public userid: number
+
+  @column()
+  public token: string
+
+  @column()
+  public type: string
+
+  @column()
+  public is_revoked: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
