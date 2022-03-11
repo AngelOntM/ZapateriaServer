@@ -1,17 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Tallas extends BaseSchema {
-  protected tableName = 'tallas'
+export default class Categories extends BaseSchema {
+  protected tableName = 'categories'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('tallaid')
-      table.decimal('talla')
+      table.increments('categoryid')
+      table.string('name').notNullable()
       table.timestamps()
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
-
     })
   }
 

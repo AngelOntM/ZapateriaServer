@@ -3,7 +3,10 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Categoria extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public categoriaid: number
+
+  @column()
+  public nombre: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

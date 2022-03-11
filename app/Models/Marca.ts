@@ -3,7 +3,10 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Marca extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public marcaid: number
+
+  @column()
+  public nombre: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

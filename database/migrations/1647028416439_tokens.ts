@@ -5,20 +5,16 @@ export default class Tokens extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('tokenid')
       table
         .integer('userid')
         .unsigned()
-        .references('users.id')
+        .references('users.userid')
         .onDelete('CASCADE')
       table.string('token', 255).notNullable().unique()
-      table.string('type', 80).notNullable()
+      table.string('type', 80)
       table.boolean('is_revoked').defaultTo(false)
       table.timestamps()
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
     })
   }
 
