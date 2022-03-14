@@ -1,3 +1,3 @@
 // import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class AuthController {}
+export default class UsersController {}
