@@ -18,19 +18,29 @@
 |
 */
 import Route from '@ioc:Adonis/Core/Route'
-Route.resource('brands', 'BrandsController');
-Route.resource('categories', 'CategoriesController');
-Route.resource('orders', 'OrdersController');
-Route.resource('orderdetails', 'OrderdetailsController');
-Route.resource('products', 'ProductsController');
-Route.resource('shippers', 'ShippersController');
-Route.resource('sizes', 'SizesController');
-Route.resource('suppliers', 'SuppliersController');
-Route.resource('users', 'UsersController');
-Route.resource('tokens', 'TokensController');
+
+Route.group(() => {
+  Route.resource('brands', 'BrandsController');
+  Route.resource('categories', 'CategoriesController');
+  Route.resource('orders', 'OrdersController');
+  Route.resource('orderdetails', 'OrderdetailsController');
+  Route.resource('products', 'ProductsController');
+  Route.resource('shippers', 'ShippersController');
+  Route.resource('sizes', 'SizesController');
+  Route.resource('suppliers', 'SuppliersController');
+  Route.resource('users', 'UsersController');
+  Route.resource('tokens', 'TokensController');
+}).middleware('auth')
 
 
+import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
+import './routes/users.ts'
 
-Route.get('/', async () => {
-  return
+// check db connection
+Route.get('health', async ({ response }) => {
+  const report = await HealthCheck.getReport()
+
+  return report.healthy ? response.ok(report) : response.badRequest(report)
 })
+
+

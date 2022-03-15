@@ -2,7 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import Category from 'App/Models/Category'
 
-export default class BrandsController {
+export default class CategoriesController {
     public async index({ response }: HttpContextContract) {
         const categories = await Category.query();
         return response.json({ categories })
