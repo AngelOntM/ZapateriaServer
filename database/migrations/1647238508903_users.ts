@@ -9,7 +9,7 @@ export default class UsersSchema extends BaseSchema {
       table.string('username', 255).notNullable().unique()
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
-      table.boolean('is_activated').notNullable().defaultTo(false)
+      table.boolean('is_activated').notNullable().defaultTo(true)
       table.string('remember_me_token').nullable()
       table.timestamps()
       table.index(['id', 'username'])

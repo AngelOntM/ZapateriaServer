@@ -28,10 +28,7 @@ Route.group(() => {
   Route.resource('shippers', 'ShippersController');
   Route.resource('sizes', 'SizesController');
   Route.resource('suppliers', 'SuppliersController');
-  Route.resource('users', 'UsersController');
-  Route.resource('tokens', 'TokensController');
 }).middleware('auth')
-
 
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import './routes/users.ts'
