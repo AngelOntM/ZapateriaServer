@@ -62,7 +62,9 @@ export default class UsersController {
                 }
                 return response.json({ users })
             } catch (e) {
-                return e
+                return response
+                    .status(400)
+                    .send({ error: { message: 'Something is wrong' } })
             }
         } else if (auth.user?.id == params.id) {
             const postSchema = schema.create({
