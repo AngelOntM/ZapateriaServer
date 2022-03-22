@@ -16,7 +16,10 @@ export default class Users extends BaseModel {
   public rememberMeToken?: string
 
   @column()
-  public isActivated: boolean = false
+  public isActivated: boolean = true
+
+  @column()
+  public accessid: number = 2
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
