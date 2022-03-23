@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Order from './Order'
-import Supplier from './Supplier'
 
 export default class Shipper extends BaseModel {
   @column({ isPrimary: true })

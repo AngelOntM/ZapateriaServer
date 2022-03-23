@@ -18,11 +18,7 @@ export default class UsersController {
 
     public async store({ auth, request, response }: HttpContextContract) {
         if (auth.user?.accessid == 1) {
-            const postSchema = schema.create({
-                email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
-                password: schema.string(),
-            })
-            const validatedData = await request.validate({ schema: postSchema })
+            const validatedData = await request.validate({ schema: User.validarAdmin() })
             const users = await User.create(validatedData);
             return response.json({ users });
         }
@@ -34,10 +30,10 @@ export default class UsersController {
     }
 
     public async show({ auth, response, params }: HttpContextContract) {
-        if (auth.user?.id == params.id) {
-            const users = await User.findByOrFail('id', params.id);
-            return response.json({ users })
-        } else {
+        try {
+            User.verUno(auth.user?.accessid, auth.user?.id, params)
+        } catch
+        {
             return response
                 .status(400)
                 .send({ error: { message: 'User has no permissions' } })
@@ -45,42 +41,17 @@ export default class UsersController {
     }
 
     public async update({ auth, request, response, params }: HttpContextContract) {
-        if (auth.user?.accessid == 1) {
-            try {
-                const postSchema = schema.create({
-                    email: schema.string({}, [rules.email()]),
-                    password: schema.string(),
-                    isActivated: schema.boolean(),
-                    accessid: schema.number()
-                })
-                const validatedData = await request.validate({ schema: postSchema })
-                const users = await User.findByOrFail('id', params.id)
-                users.merge(validatedData)
-                await users.save()
-                if (validatedData.isActivated == false) {
-                    await Database.from('api_tokens').where('user_id', params.id).delete()
-                }
-                return response.json({ users })
-            } catch (e) {
-                return response
-                    .status(400)
-                    .send({ error: { message: 'Something is wrong' } })
-            }
-        } else if (auth.user?.id == params.id) {
-            const postSchema = schema.create({
-                email: schema.string({}, [rules.email()]),
-                password: schema.string(),
-            })
-            const validatedData = await request.validate({ schema: postSchema })
+        try {
             const users = await User.findByOrFail('id', params.id)
-            users.merge(validatedData)
+            const validado = await User.validar(auth.user?.accessid, request)
+            users.merge(validado)
             await users.save()
+            User.desactivar(users)
             return response.json({ users })
-        }
-        else {
+        } catch (e) {
             return response
                 .status(400)
-                .send({ error: { message: 'User has no permissions' } })
+                .send({ error: { message: 'Something is wrong' } })
         }
     }
 

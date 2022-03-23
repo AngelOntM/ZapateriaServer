@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Orderdetails from 'Database/migrations/1647028151000_orderdetails'
 import Orderdetail from './Orderdetail'
 import Brand from './Brand'
 import Size from './Size'
