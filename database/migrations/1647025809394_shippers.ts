@@ -7,7 +7,7 @@ export default class Shippers extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('shipperid')
       table.string('name').notNullable()
-      table.integer('phone')
+      table.bigInteger('phone')
       table.timestamps()
     })
   }

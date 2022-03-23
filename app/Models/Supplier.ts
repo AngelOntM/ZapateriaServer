@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Order from './Order'
+import Shipper from './Shipper'
 
 export default class Supplier extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +21,13 @@ export default class Supplier extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Order, {
+    foreignKey: 'supplierid'
+  })
+  public orders: HasMany<typeof Order>
+
+  /*@manyToMany(() => Shipper)
+  public shippers: ManyToMany<typeof Shipper>*/
+
 }
